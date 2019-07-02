@@ -1,0 +1,22 @@
+{
+  "name": "notes-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Navneet-Sahota/notes-app.git"
+  },
+  "keywords": [
+    "notes"
+  ],
+  "author": "Navneet Sahota",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Navneet-Sahota/notes-app/issues"
+  },
+  "homepage": "https://github.com/Navneet-Sahota/notes-app#readme"
+}
