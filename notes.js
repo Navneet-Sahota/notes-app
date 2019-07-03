@@ -2,6 +2,10 @@ const fs = require("fs");
 const chalk = require("chalk");
 
 const addNote = (title, body) => {
+	if (title === "") {
+		console.log(chalk.bold.red.inverse("Note title can't be empty string!"));
+		return;
+	}
 	const notes = loadNotes();
 	const isTitlePresent = notes.find(note => note.title === title);
 
