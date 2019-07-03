@@ -1,10 +1,6 @@
 const fs = require("fs");
 const chalk = require("chalk");
 
-const getNotes = () => {
-	return "Your notes...";
-};
-
 const addNote = (title, body) => {
 	const notes = loadNotes();
 	const isTitlePresent = notes.find(note => note.title === title);
@@ -16,8 +12,8 @@ const addNote = (title, body) => {
 		});
 		saveNotes(notes);
 		console.log(chalk.bold.green.inverse("Note Added Successfully!"));
-		console.log("Title: ", chalk.green(title));
-		console.log("Description: ", chalk.blue(body));
+		console.log(chalk.bold("Title: "), chalk.bold.green(title));
+		console.log("Body: ", chalk.magenta(body));
 	} else {
 		console.log(chalk.bold.red.inverse("Note title taken!"));
 	}
@@ -31,7 +27,7 @@ const removeNote = title => {
 		const updatedNotes = notes.filter(note => note.title !== title);
 		saveNotes(updatedNotes);
 		console.log(chalk.bold.green.inverse("Note Removed Successfully!"));
-		console.log("Title: ", chalk.red(title));
+		console.log(chalk.bold("Title: "), chalk.bold.red(title));
 	} else {
 		console.log(chalk.bold.red.inverse("Note does not exist!"));
 	}
@@ -41,8 +37,20 @@ const listNotes = () => {
 	const notes = loadNotes();
 	console.log(chalk.bold.yellow.underline.inverse("Your Notes"));
 	notes.forEach((note, index) => {
-		console.log(chalk.cyan(index + 1 + ") "), chalk.cyan(note.title));
+		console.log(chalk.bold.cyan(index + 1 + ") "), chalk.cyan(note.title));
 	});
+};
+
+const readNote = title => {
+	const notes = loadNotes();
+	const note = notes.find(note => note.title === title);
+
+	if (note) {
+		console.log(chalk.bold("Title: "), chalk.bold.green(note.title));
+		console.log("Body: ", chalk.magenta(note.body));
+	} else {
+		console.log(chalk.bold.red.inverse("Note does not exist!"));
+	}
 };
 
 const saveNotes = notes => {
@@ -61,8 +69,8 @@ const loadNotes = () => {
 };
 
 module.exports = {
-	getNotes,
 	addNote,
 	removeNote,
 	listNotes,
+	readNote,
 };

@@ -1,4 +1,3 @@
-const chalk = require("chalk");
 const yargs = require("yargs");
 const notes = require("./notes");
 
@@ -31,7 +30,7 @@ yargs.command(
 	"Remove an existing note",
 	{
 		title: {
-			alias: "-t",
+			alias: "t",
 			describe: "Note Title",
 			type: "string",
 			demandOption: true,
@@ -42,14 +41,26 @@ yargs.command(
 	}
 );
 
-// Create remove command
+// Create list command
 yargs.command("list", "List all the notes", () => {
 	notes.listNotes();
 });
 
-// Create remove command
-yargs.command("read", "Read description of existing note", () => {
-	console.log(chalk.blue("Reading Note!"));
-});
+// Create read command
+yargs.command(
+	"read",
+	"Read description of existing note",
+	{
+		title: {
+			alias: "t",
+			describe: "Note Title",
+			type: "string",
+			demandOption: true,
+		},
+	},
+	argv => {
+		notes.readNote(argv.title);
+	}
+);
 
 yargs.parse();
