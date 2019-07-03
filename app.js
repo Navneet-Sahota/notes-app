@@ -44,7 +44,7 @@ yargs.command(
 
 // Create remove command
 yargs.command("list", "List all the notes", () => {
-	console.log(chalk.blue("Listing all Notes!"));
+	notes.listNotes();
 });
 
 // Create remove command
