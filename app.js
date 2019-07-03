@@ -26,9 +26,21 @@ yargs.command(
 );
 
 // Create remove command
-yargs.command("remove", "Remove an existing note", () => {
-	console.log(chalk.red("Removing Note!"));
-});
+yargs.command(
+	"remove",
+	"Remove an existing note",
+	{
+		title: {
+			alias: "-t",
+			describe: "Note Title",
+			type: "string",
+			demandOption: true,
+		},
+	},
+	argv => {
+		notes.removeNote(argv.title);
+	}
+);
 
 // Create remove command
 yargs.command("list", "List all the notes", () => {
