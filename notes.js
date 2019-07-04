@@ -1,12 +1,12 @@
-const fs = require("fs");
 const chalk = require("chalk");
+const utils = require("./utils");
 
 const addNote = (title, body) => {
 	if (title === "") {
 		console.log(chalk.bold.red.inverse("Note title can't be empty string!"));
 		return;
 	}
-	const notes = loadNotes();
+	const notes = utils.loadNotes();
 	const isTitlePresent = notes.find(note => note.title === title);
 
 	if (!isTitlePresent) {
@@ -14,7 +14,7 @@ const addNote = (title, body) => {
 			title,
 			body,
 		});
-		saveNotes(notes);
+		utils.saveNotes(notes);
 		console.log(chalk.bold.green.inverse("Note Added Successfully!"));
 		console.log(chalk.bold("Title: "), chalk.bold.green(title));
 		console.log("Body: ", chalk.magenta(body));
@@ -24,12 +24,12 @@ const addNote = (title, body) => {
 };
 
 const removeNote = title => {
-	const notes = loadNotes();
+	const notes = utils.loadNotes();
 	const isTitlePresent = notes.find(note => note.title === title);
 
 	if (isTitlePresent) {
 		const updatedNotes = notes.filter(note => note.title !== title);
-		saveNotes(updatedNotes);
+		utils.saveNotes(updatedNotes);
 		console.log(chalk.bold.green.inverse("Note Removed Successfully!"));
 		console.log(chalk.bold("Title: "), chalk.bold.red(title));
 	} else {
@@ -38,7 +38,7 @@ const removeNote = title => {
 };
 
 const listNotes = () => {
-	const notes = loadNotes();
+	const notes = utils.loadNotes();
 	console.log(chalk.bold.yellow.underline.inverse("Your Notes"));
 	notes.forEach((note, index) => {
 		console.log(chalk.bold.cyan(index + 1 + ") "), chalk.cyan(note.title));
@@ -46,7 +46,7 @@ const listNotes = () => {
 };
 
 const readNote = title => {
-	const notes = loadNotes();
+	const notes = utils.loadNotes();
 	const note = notes.find(note => note.title === title);
 
 	if (note) {
@@ -57,18 +57,17 @@ const readNote = title => {
 	}
 };
 
-const saveNotes = notes => {
-	const dataJSON = JSON.stringify(notes);
-	fs.writeFileSync("notes.json", dataJSON);
-};
-
-const loadNotes = () => {
-	try {
-		const dataBuffer = fs.readFileSync("notes.json");
-		const dataJSON = dataBuffer.toString();
-		return JSON.parse(dataJSON);
-	} catch (err) {
-		return [];
+const removeAllNotes = () => {
+	const notes = utils.loadNotes();
+	if (!notes.length) {
+		console.log(chalk.bold.red.inverse("There are no notes to be removed!"));
+	} else {
+		const err = utils.deleteAllNotes();
+		if (err) {
+			console.log(chalk.bold.red.inverse(err));
+		} else {
+			console.log(chalk.bold.green.inverse("All Notes Removed Successfully!"));
+		}
 	}
 };
 
@@ -77,4 +76,5 @@ module.exports = {
 	removeNote,
 	listNotes,
 	readNote,
+	removeAllNotes,
 };

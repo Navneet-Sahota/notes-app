@@ -63,4 +63,7 @@ yargs.command(
 	}
 );
 
+// Remove all notes
+yargs.command("remove-all", "Remove all notes", () => notes.removeAllNotes());
+
 yargs.parse();
