@@ -4,16 +4,19 @@ A CLI tool to keep up with your tasks.
 
 ## Quick Overview
 
-Fork, clone and then just run this command to get started.
+Fork, clone and then just run these command to get started.
 
 ```sh
 npm i
+npm start -- remove-all
 ```
+
+`npm start -- remove-all` is used to remove existing notes, if any.
 
 To get the list of available commands, run:
 
 ```sh
-node app.js --help
+npm start -- --help
 ```
 
 ## Adding a Note
@@ -52,6 +55,14 @@ To read a note with its title and body, run:
 
 ```sh
 npm start -- read -t "Note title to be read"
+```
+
+## Remove all Notes
+
+To remove all notes, run:
+
+```sh
+npm start -- remove-all
 ```
 
 ##### I did this project to get some familiarity with node file system module. If you have some more ideas, feel free to contribute here.
